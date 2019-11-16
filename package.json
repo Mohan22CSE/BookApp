@@ -18,6 +18,6 @@
     "passport": "0.4.0",
     "mongoose": "5.7.11",
     "passport-google-oauth":"2.0.0",
-    "ejb":"2.7.2"
+    "ejs":"2.7.2"
   }
 }

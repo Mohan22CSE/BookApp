@@ -1,0 +1,82 @@
+<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<form class="form" method="post" action="/books/submit" role="form" autocomplete="off"  align="center">
+    <br>
+    <div class="form-group row">
+     <div class="col-lg-2"></div>
+    <div class="col-lg-3 text-center">
+        <h3>Enter Book Details</h3>
+    </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-3 text-center">
+            <% include ./error %>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label form-control-label">NAME </label>
+        <div class="col-lg-3">
+            <input 
+                   name="name" 
+                   class="form-control" 
+                   type="text" 
+                   value="<%= typeof paperback != 'undefined' ? paperback : '' %>"
+                   />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label form-control-label">PAPERBACK </label>
+        <div class="col-lg-3">
+            <input 
+                   name="paperback" 
+                   class="form-control" 
+                   type="text"
+                   value="<%= typeof paperback != 'undefined' ? paperback : '' %>"
+                   />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label form-control-label">PUBLISHER</label>
+        <div class="col-lg-3">
+            <input 
+                   name = "publisher" 
+                   class="form-control" 
+                   type="text"
+                    value="<%= typeof publisher != 'undefined' ? publisher : '' %>"
+                   />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label form-control-label">LANGUAGE</label>
+        <div class="col-lg-3">
+            <input 
+                   name = "language" 
+                   class="form-control" 
+                   type="text"
+                    value="<%= typeof language != 'undefined' ? language : '' %>"
+                   />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label form-control-label">ISBN NUMBER</label>
+        <div class="col-lg-3">
+            <input 
+                   name = "isbn" 
+                   class="form-control" 
+                   type="text"
+                   value="<%= typeof isbn != 'undefined' ? isbn : '' %>"
+                   />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-3 text-center">
+                <input type="reset" class="btn btn-secondary" value="Cancel">
+                <input type="submit" class="btn btn-primary"value="Save Changes">
+        </div>
+    </div>
+</form>

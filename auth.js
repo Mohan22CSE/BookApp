@@ -16,8 +16,6 @@ module.exports = (passport) => {
   function(request, accessToken, refreshToken, profile, done) {
          UserModel.findOne({ profile_id: profile.id }).then(user => {
             if(user){
-                console.log(" created");
-                console.log(user);
                  return done(user, {
                 profile: profile,
                 token: accessToken
@@ -30,8 +28,8 @@ module.exports = (passport) => {
                 role : "user",
                 auth_tocken : accessToken
                 });
-                newBook.save(function (err) {
-                    return done(newBook, {
+                newBook.save(function (err, newUsers) {
+                    return done(newUsers, {
                 profile: profile,
                 token: accessToken
             },null);

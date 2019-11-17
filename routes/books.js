@@ -4,17 +4,15 @@ const BookMaster = require('../model/bookMaster');
 const MyBook = require('../model/mybook');
 
 router.get('/create', function(req, res, next) {
-  res.render('createBook', { data: 'test' });
+  res.render('createBook');
 });
 
 router.get('/addMybook', function(req, res, next) {
-  var user_id = req.session.id;
+  var user_id = req.session.user_id;
   var book_id = req.query.id
   let errors = [];
-
   MyBook.findOne({book_id:book_id,user_id : user_id }).then(book => {
-      if (book) {
-        console.log(book);
+      if (book) {;
         errors.push({ msg: 'already exists' });
          res.redirect('/index');
       } else { 

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const MyBook = new mongoose.Schema({
   book_id: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
+    ref: 'bookMaster',
     required: true
   },
   user_id: {
@@ -10,5 +11,5 @@ const MyBook = new mongoose.Schema({
   }
 });
 
-const MyBooks = mongoose.model('my_book', MyBook);
+const MyBooks = mongoose.model('my_books', MyBook);
 module.exports = MyBooks;

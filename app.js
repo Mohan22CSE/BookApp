@@ -17,7 +17,7 @@ db = require('./db');
 var app = express();
 auth(passport);
 app.use(passport.initialize());
-app.use(session({secret: 'superdsdsaddasdsdasasdasdsecret'}));
+app.use(session({secret: 'sshh',saveUninitialized: true,resave: true}));
 
 app.get('/', function (req, res) {
   res.render('login',);
@@ -37,9 +37,10 @@ app.get('/auth/google', passport.authenticate('google', {
 
 app.get('/auth/google/callback',function(req, res, next) {
     passport.authenticate('google', function (pro, user, info){
-       var sessionData = req.session;
        req.session.id = pro._id;
-      return res.redirect('/index?id=' + pro._id);
+       req.session.user_id = pro._id;
+       req.session.name = pro.name;
+      return res.redirect('/index');
     })(req, res, next);
   });
 

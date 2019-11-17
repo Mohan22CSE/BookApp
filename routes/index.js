@@ -6,29 +6,21 @@ const UserModel = require('../model/users');
 
 /* GET home page. */
 router.get('/index', function(req, res, next) {
-	  var user_id = req.session.user_id;
+	var user_id = req.session.user_id;
+	 if(!user_id){
+	 	res.redirect('/');
+	  }
+
     BookMaster.find({}, function(err, books) {
-    	UserModel.find({_id : user_id}, function(err,user) {
-    		res.render('index', {books : books, user : user[0]});
-    	});
-
-  //   	MyBooks
-		// .find({ user_id: user_id},function(err2, child){
-
-		// 	for (var arrayIndex in child) {
-		// 		  var bookId = child[arrayIndex].book_id;
-		// 		  BookMaster.findOne({_id : bookId}, function(err3, myBook) {
-		// 		  		console.log(myBook);
-		// 		  });
-
-		// 		}
-				
-		// });
-
-		
-        
+	    	UserModel.find({_id : user_id}, function(err,user) {
+	    		MyBooks.find({user_id:user_id},{_id:0,book_id:1},(err,booksArray)=>{
+			    	bkk = booksArray.map((x)=>x.book_id);
+			    	BookMaster.find({_id:{$in:bkk}},(err,bookinf)=>{
+			    		res.render('index', {books : books, user : user[0] , mybook : bookinf});
+			    	 })
+			    });
+	    	});
+    	}); 
     });
-    
-});
 
 module.exports = router;

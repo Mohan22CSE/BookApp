@@ -47,6 +47,7 @@ app.get('/auth/google/callback',function(req, res, next) {
 app.get('/logout', (req, res) => {
     req.logout();
     req.session = null;
+    // req.session.user_id = null;
     res.redirect('/');
 });
 

@@ -28,15 +28,6 @@
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-
-	<script type="text/javascript">
-	    $(document).ready(function() {
-	        //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #MyList
-	        $('#userList').DataTable();
-	        $('#MyList').DataTable();
-
-	    } );
-	</script>
 </head>
 <body>
 	<div class="container">
@@ -50,12 +41,15 @@
 			<a  href="/logout"><button  align="center"type="button" class="btn btn-success">Log Out</button></a>
 		</div>
 		
-		<ul class="nav nav-tabs justify-content-end">
+		<ul class="nav nav-tabs justify-content">
 			<li class="nav-item">
 			<a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Book Catalogue</a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">My Books</a>				   	
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="true">User List</a>				   	
 			</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
@@ -101,7 +95,7 @@
 			<div class="tab-pane fade" id="form" role="tabpanel" aria-labelledby="form-tab">
 				<div class="card">
 					<div class="card-header">
-						<h4>Book List</h4>
+						<h4>My Book List</h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -135,7 +129,41 @@
 				</div>
 
 			</div>
+
+				<div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="form-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>User List</h4>
+					</div>
+					<div class="card-body"> 
+						<input id="myInput" type="text" placeholder="Search user">
+						<br><br>
+						<ul id="myList">
+							  <% allusers.forEach(function(user) {  %>
+							  <li><a href="/books/getUser?id=<%=user._id%>"> <%= user.name  %></a></li><br>
+                              <%  }); %>
+						</ul>
+						
+					</div>
+			</div>
+		</div>
+
 		</div>
 	</div>
 </div>
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #MyList
+	        $('#userList').DataTable();
+	        $('#MyList').DataTable();
+
+	        $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myList li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
+	    } );
+	</script>
 </body>

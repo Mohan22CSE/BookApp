@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const BookMaster = require('../model/bookMaster');
 const MyBook = require('../model/mybook');
+const UserModel = require('../model/users');
 
 router.get('/create', function(req, res, next) {
   var user_id = req.session.user_id;
@@ -107,5 +108,30 @@ router.post('/submit', function(req, res, next) {
     });
   }
 });
+
+
+router.get('/getUser', function(req, res, next) {
+  var user_id = req.session.user_id;
+  var to_id = req.query.id;
+   if(!user_id){
+    res.redirect('/');
+    }
+
+console.log(to_id);
+    MyBook.find({user_id:to_id},{_id:0,book_id:1},(err,booksArray)=>{
+        bkk = booksArray.map((x)=>x.book_id);
+            BookMaster.find({_id:{$in:bkk}},(err,bookinf)=>{
+              UserModel.find({_id:to_id},function(err, currentUser){
+                res.render('userbooklist', 
+                  {
+                    mybook : bookinf,
+                    currentUser : currentUser[0]
+                  });
+              });
+             })
+          });
+
+    
+    });
 
 module.exports = router;

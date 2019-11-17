@@ -16,7 +16,15 @@ router.get('/index', function(req, res, next) {
 	    		MyBooks.find({user_id:user_id},{_id:0,book_id:1},(err,booksArray)=>{
 			    	bkk = booksArray.map((x)=>x.book_id);
 			    	BookMaster.find({_id:{$in:bkk}},(err,bookinf)=>{
-			    		res.render('index', {books : books, user : user[0] , mybook : bookinf});
+			    		UserModel.find({},function(err, allusers){
+			    			res.render('index', 
+			    				{
+			    					books : books, 
+			    					user : user[0], 
+			    					mybook : bookinf,
+			    					allusers : allusers
+			    				});
+			    		});
 			    	 })
 			    });
 	    	});
